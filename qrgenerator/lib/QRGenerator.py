@@ -1,5 +1,5 @@
 import qrcode
-import qrcode.image.svg
+from qrcode.image.pure import PymagingImage
 
 def generate(input_tuple):
     elements = list(input_tuple)
@@ -10,10 +10,8 @@ def generate(input_tuple):
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=10,
-        border=4
+        border=0
     )
     qr.add_data(data_to_encode)
 
-    img = qr.make_image(qrcode.image.svg.SvgPathFillImage, fill_color="black", back_color="white")
-
-    return img
+    return qr.make_image(fill_color="black", back_color="white")

@@ -1,3 +1,4 @@
+import os
 import sys
 import getopt
 from lib.SheetReader import read as read_sheet
@@ -29,10 +30,20 @@ def main(argv):
             startrow = int(arg)
 
     rows = read_sheet(inputfile, startrow, columns)
-    image = generate_qrcode(rows[0])
-    image.save("testfile.svg")
 
-    create_sheet(["testfile.svg"])
+    # Create a <Kit ID>-<Owner ID> directory
+    dir_name = rows[0][0] + '-' + rows[0][1]
+    if not os.path.isdir(dir_name):
+        os.makedirs(dir_name)
+
+    for r in rows:
+        code = generate_qrcode(r)
+        filename = os.path.join(r[0] + '-' + r[1], r[3] + '.png')
+        code.save(filename)
+
+    tex_file = create_sheet(rows, dir_name)
+    with open('labels.tex', 'w') as fh:
+        fh.write(tex_file)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

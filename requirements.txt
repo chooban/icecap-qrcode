@@ -26,6 +26,8 @@ pandas==0.23.4
 Pillow==7.1.1
 pyasn1==0.4.5
 pylint==2.4.4
+-e git://github.com/ojii/pymaging.git@596a08fce5664e58d6e8c96847393fbe987783f2#egg=pymaging
+-e git://github.com/ojii/pymaging-png.git@83d85c44e4b2342818e6c068065e031a9f81bb9f#egg=pymaging_png
 pynvim==0.3.2
 pyparsing==2.3.0
 python-dateutil==2.7.5
