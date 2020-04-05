@@ -2,6 +2,7 @@ import sys
 import getopt
 from lib.SheetReader import read as read_sheet
 from lib.QRGenerator import generate as generate_qrcode
+from lib.Template import create_sheet
 
 def main(argv):
     inputfile = ''
@@ -29,8 +30,9 @@ def main(argv):
 
     rows = read_sheet(inputfile, startrow, columns)
     image = generate_qrcode(rows[0])
-
     image.save("testfile.svg")
+
+    create_sheet(["testfile.svg"])
 
 if __name__ == "__main__":
     main(sys.argv[1:])
