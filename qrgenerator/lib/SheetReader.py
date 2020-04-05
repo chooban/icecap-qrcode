@@ -17,4 +17,5 @@ def read(input_file, start_row, columns):
     )
 
     tuples = list(df.itertuples(index=False, name=None))
-    print(tuples)
+
+    return tuples
