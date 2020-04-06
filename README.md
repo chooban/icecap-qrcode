@@ -9,5 +9,6 @@ pip3 install -r requirements.txt
 
 ```
 ./bin/qrgenerator -i input_file.xlsx
-pdflatex labels.tex
 ```
+
+You will be left with a pdf file named after the project and patient IDs.
