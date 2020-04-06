@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "qrgenerator-env/bin/python",
+  "python.pythonPath": "/Users/ross/.pyenv/versions/3.7.2/bin/python3.7",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true

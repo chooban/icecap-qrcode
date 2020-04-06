@@ -1,10 +1,10 @@
-from itertools import repeat
 import os
 
 header = """
 \\documentclass[a4paper,10pt]{article}
 \\usepackage{graphicx}
 \\usepackage{xcolor}
+\\usepackage[breakwords]{truncate}
 %--------------------------
 \\usepackage[newdimens]{labels}
 \\LabelGridtrue
@@ -36,12 +36,19 @@ footer = """
 def create_sheet(data, root_dir):
     labels = '\t'
     for d in data:
-      labels += """
+        labels += """
   \\boxedaddresslabel[\\fboxrule=0pt]{%
     \\includegraphics[height=1.8cm]{{./""" + root_dir + os.sep + str(d[3]) + """}.png}
     \\rotatebox{90}{
-      \\footnotesize{""" + d[1] + """\\hfill\\break """ + d[3].replace(d[1], '') + """}
+      \\footnotesize{""" + d[1] + """}
     }
+    \\rotatebox{90}{
+      \\footnotesize{""" + d[3].replace(d[1], '') + """}
+    }
+    \\rotatebox{90}{
+      \\truncate[-]{1.75cm}{\\footnotesize{""" + d[2] + """}}
+    }
+    \\vspace{4mm}
   }"""
 
     return header + labels + footer

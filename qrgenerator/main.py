@@ -1,17 +1,22 @@
 import os
 import sys
 import getopt
+import subprocess
 from lib.SheetReader import read as read_sheet
 from lib.QRGenerator import generate as generate_qrcode
 from lib.Template import create_sheet
 
+
 def main(argv):
     inputfile = ''
-    outputfile = ''
     startrow = 3
-    columns = [0,1,5,6]
+    columns = [0, 1, 5, 6]
     try:
-        opts, args = getopt.getopt(argv, "hi:o:c:r:", ["ifile=", "ofile=", "columns=", "startrow="])
+        opts, args = getopt.getopt(
+            argv,
+            "hi:o:c:r:",
+            ["ifile=", "columns=", "startrow="]
+        )
     except getopt.GetoptError:
         print("qrgenerator.py -i <inputfile> -o <outputfile>")
         sys.exit()
@@ -21,8 +26,6 @@ def main(argv):
             sys.exit()
         elif opt in ("-i", "--ifile"):
             inputfile = arg
-        elif opt in ("-o", "--ofile"):
-            outputfile = arg
         elif opt in("-c", "--columns"):
             print("Not supported yet")
             sys.exit(1)
@@ -33,6 +36,8 @@ def main(argv):
 
     # Create a <Kit ID>-<Owner ID> directory
     dir_name = rows[0][0] + '-' + rows[0][1]
+    file_name = dir_name
+
     if not os.path.isdir(dir_name):
         os.makedirs(dir_name)
 
@@ -42,8 +47,15 @@ def main(argv):
         code.save(filename)
 
     tex_file = create_sheet(rows, dir_name)
-    with open('labels.tex', 'w') as fh:
+    with open(os.path.join(dir_name, file_name + '.tex'), 'w') as fh:
         fh.write(tex_file)
+
+    subprocess.call(
+        ['pdflatex', os.path.join(dir_name, file_name + '.tex')]
+    )
+    os.unlink(file_name + '.aux')
+    os.unlink(file_name + '.log')
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
