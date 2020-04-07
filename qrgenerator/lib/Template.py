@@ -38,7 +38,7 @@ def create_sheet(data, root_dir):
     for d in data:
         labels += """
   \\boxedaddresslabel[\\fboxrule=0pt]{%
-    \\includegraphics[height=1.8cm]{{./""" + root_dir + os.sep + str(d[3]) + """}.png}
+    \\includegraphics[height=1cm]{{./""" + root_dir + os.sep + str(d[3]) + """}.png}
     \\rotatebox{90}{
       \\footnotesize{""" + d[1] + """}
     }
