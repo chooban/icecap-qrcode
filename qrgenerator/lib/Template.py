@@ -1,14 +1,15 @@
 import os
 
 header = """
-\\documentclass[a4paper,10pt]{article}
+\\documentclass[10pt]{article}
+\\usepackage[papersize={8.5in,11in}]{geometry}
 \\usepackage{graphicx}
 \\usepackage{xcolor}
 \\usepackage[breakwords]{truncate}
 %--------------------------
 \\usepackage[newdimens]{labels}
-\\LabelGridtrue
-\\LabelInfotrue
+%\\LabelGridtrue
+%\\LabelInfotrue
 \\LabelCols=5%             Number of columns of labels per page
 \\LabelRows=12%             Number of rows of labels per page
 
@@ -23,6 +24,8 @@ header = """
 \\RightLabelBorder=0mm%      space used around the text on each
 \\TopLabelBorder=4mm%        actual label.
 \\BottomLabelBorder=0mm%
+\\setlength{\\arrayrulewidth}{1mm}
+
 %--------------------------
 \\begin{document}
 \\sf
@@ -38,16 +41,13 @@ def create_sheet(data, root_dir):
     for d in data:
         labels += """
   \\boxedaddresslabel[\\fboxrule=0pt]{%
-    \\includegraphics[height=1cm]{{./""" + root_dir + os.sep + str(d[3]) + """}.png}
-    \\rotatebox{90}{
-      \\footnotesize{""" + d[1] + """}
+    \\includegraphics[width=1.5cm]{{./""" + root_dir + os.sep + str(d[1]) + """}.png}
+    \\
+    \\rotatebox{90} {
+      \\footnotesize{""" + d[0] + """}
+      \\hspace{5mm}
     }
-    \\rotatebox{90}{
-      \\footnotesize{""" + d[3].replace(d[1], '') + """}
-    }
-    \\rotatebox{90}{
-      \\truncate[-]{1.75cm}{\\footnotesize{""" + d[2] + """}}
-    }
+    \\footnotesize{""" + d[1].replace('_', '\\_') + """}
     \\vspace{4mm}
   }"""
 

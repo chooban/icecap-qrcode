@@ -1,10 +1,11 @@
 import qrcode
-from qrcode.image.pure import PymagingImage
 
-def generate(input_tuple):
+
+def generate(input_tuple, filename):
     elements = list(input_tuple)
     data_to_encode = "|".join(elements)
-    print('Generating barcode for', data_to_encode)
+    # print('Generating barcode for', data_to_encode)
+    # print('Saving to', filename)
 
     qr = qrcode.QRCode(
         version=1,
@@ -14,4 +15,7 @@ def generate(input_tuple):
     )
     qr.add_data(data_to_encode)
 
-    return qr.make_image(fill_color="black", back_color="white")
+    image = qr.make_image(fill_color="black", back_color="white")
+    image.save(filename)
+
+    return True
