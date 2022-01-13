@@ -23,7 +23,7 @@ mccabe==0.6.1
 msgpack==0.6.1
 numpy==1.15.4
 pandas==0.23.4
-Pillow==7.1.1
+Pillow==9.0.0
 pyasn1==0.4.5
 pylint==2.4.4
 -e git://github.com/ojii/pymaging.git@596a08fce5664e58d6e8c96847393fbe987783f2#egg=pymaging
